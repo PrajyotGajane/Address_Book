@@ -5,6 +5,8 @@ import java.util.*;
 public class addressBook {
     public static void main(String[] args) {
         ArrayList<Person> arrayReference = new ArrayList<>();
+        HashMap<String,String> mapCity= new HashMap<>();
+        HashMap<String,String> mapState=new HashMap<>();
         Scanner sc = new Scanner(System.in);
         boolean endKey = true;
         int count = 0;
@@ -33,6 +35,8 @@ public class addressBook {
                     // logic for duplicate names using iterator and equals method
                     while(count == 0) {
                         arrayReference.add(new Person(firstName, lastName, address, cityName, stateName, zipCode, mobileNumber));
+                        mapCity.put(firstName,cityName);
+                        mapState.put(firstName,stateName);
                         count++;
                     }
                     int duplicate=0;
@@ -49,8 +53,11 @@ public class addressBook {
                         }
                         if (duplicate == 1)
                             break;
-                        else
+                        else {
                             arrayReference.add(new Person(firstName, lastName, address, cityName, stateName, zipCode, mobileNumber));
+                            mapCity.put(firstName,cityName);
+                            mapState.put(firstName,stateName);
+                        }
                     }
                     count++;
                     break;
@@ -114,10 +121,35 @@ public class addressBook {
                         System.out.println(cont);
                     break;
                 case 4:
-                    for (Person cont : arrayReference)
-                        System.out.println(cont);
-                    break;
+                    System.out.println("1: All contacts 2: By city 3:By state");
+                    int choice3 = sc.nextInt();
+                    switch (choice3){
+                        case 1:
+                            for(Person cont : arrayReference) {
+                                System.out.println(cont);
+                            }
+                            break;
 
+                        case 2:
+                            for (Iterator iter = mapCity.entrySet().iterator(); iter.hasNext();) {
+                                Map.Entry e = (Map.Entry) iter.next();
+                                // prints all the people in map with their corresponding cities
+                                System.out.println(e.getKey()+" from "+e.getValue());
+                            }
+                            break;
+                        case 3:
+                            for (Iterator iter = mapState.entrySet().iterator(); iter.hasNext();) {
+                                Map.Entry e = (Map.Entry) iter.next();
+                                // printss all the people in map with their corresponding states
+                                System.out.println(e.getKey()+" from "+e.getValue());
+                            }
+                            break;
+                        default:
+                            System.out.println("Invalid input");
+                            break;
+                    }
+
+                    break;
                 case 5:
                     System.out.println("Press 1: Sort by Name 2: Sort by city 3: Sort by State 4: Sort by zip code");
                     int choice_2 = sc.nextInt();
