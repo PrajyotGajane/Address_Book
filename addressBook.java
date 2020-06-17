@@ -1,12 +1,14 @@
 package com.bridgelabz.addressBook;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 //main class to choose various options
 public class addressBook {
     public static void main(String[] args) {
+        ArrayList<Person> arrayReference = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
-        System.out.println("Welcome to Address book");
+	    System.out.println("Welcome to Address book");
         System.out.println("Enter the first name:");
         String firstName = sc.nextLine();
         System.out.println("Enter the last name:");
@@ -19,7 +21,8 @@ public class addressBook {
         int zipCode = sc.nextInt();
         System.out.println("Enter the mobile number:");
         long mobileNumber = sc.nextLong();
-        new Person( firstName, lastName, cityName, stateName, zipCode, mobileNumber);
+        //this reference can be used to store multiple contacts records in array list
+        arrayReference.add(new Person( firstName, lastName, cityName, stateName, zipCode, mobileNumber));
     }
 }
 //class to store contacts
@@ -44,3 +47,5 @@ class Person{
                 this.zipCode +" "+ this.mobileNumber;
     }
 }
+
+
