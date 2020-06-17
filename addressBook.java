@@ -1,7 +1,5 @@
 package com.bridgelabz.addressBook;
-import java.util.ArrayList;
-import java.util.ListIterator;
-import java.util.Scanner;
+import java.util.*;
 
 //main class to choose various options
 public class addressBook {
@@ -13,7 +11,7 @@ public class addressBook {
         System.out.println("Welcome to Address book");
         System.out.println("Select options from the menu");
         while (endKey) {
-            System.out.println("1.Add  2.Edit  3.Delete 4.View 9:Exit");
+            System.out.println("1.Add  2.Edit  3.Delete 4.View 5:Sort 9:Exit");
             int choice = sc.nextInt();
             switch (choice) {
                 case 1:
@@ -119,6 +117,26 @@ public class addressBook {
                     for (Person cont : arrayReference)
                         System.out.println(cont);
                     break;
+
+                case 5:
+                    System.out.println("Press 1: Sort by Name 2: Sort by Zip code 3: Sort by State");
+                    int choice_2 = sc.nextInt();
+                    switch (choice_2){
+                        case 1:
+                            Collections.sort(arrayReference,new Comparator<Person>(){
+                                public int compare(Person obj1,Person obj2){
+                                    return obj2.firstName.compareTo(obj1.firstName);
+                                }
+                            }.reversed());
+                            break;
+
+                        default:
+                            System.out.println("Enter valid input");
+                            break;
+                    }
+                    for(Person content : arrayReference)
+                        System.out.println(content);
+                    break;
                 case 9:
                     endKey=false;
                     break;
@@ -130,7 +148,7 @@ public class addressBook {
         }
     }
 }
-//class to store contacts
+//class for contacts
 class Person{
     public String firstName;
     public String lastName;
