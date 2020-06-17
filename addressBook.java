@@ -9,6 +9,7 @@ public class addressBook {
         ArrayList<Person> arrayReference = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
         boolean endKey = true;
+        int count = 0;
         System.out.println("Welcome to Address book");
         System.out.println("Select options from the menu");
         while (endKey) {
@@ -31,8 +32,29 @@ public class addressBook {
                     int zipCode = sc.nextInt();
                     System.out.println("Enter the mobile number:");
                     long mobileNumber = sc.nextLong();
-                    //this reference can be used to store multiple contacts records in array list
-                    arrayReference.add(new Person(firstName, lastName, address, cityName, stateName, zipCode, mobileNumber));
+                    // logic for duplicate names using iterator and equals method
+                    while(count == 0) {
+                        arrayReference.add(new Person(firstName, lastName, address, cityName, stateName, zipCode, mobileNumber));
+                        count++;
+                    }
+                    int duplicate=0;
+                    if( count > 1) {
+                        for (ListIterator<Person> iter = arrayReference.listIterator(); iter.hasNext(); ) {
+
+                            Person data = iter.next();
+                            if (firstName.equals(data.getRecord())) {
+                                System.out.println("Contact already exists: please enter a unique name");
+                                duplicate=1;
+                                break;
+                            }
+                            //System.out.println("else part");
+                        }
+                        if (duplicate == 1)
+                            break;
+                        else
+                            arrayReference.add(new Person(firstName, lastName, address, cityName, stateName, zipCode, mobileNumber));
+                    }
+                    count++;
                     break;
                 case 2:
                     sc.nextLine();
@@ -128,7 +150,7 @@ class Person{
         this.mobileNumber = mobileNumber;
     }
     public String toString(){
-        return this.firstName+" "+ this.lastName +" "+ this.cityName +" "+ this.stateName +" "+
+        return this.firstName+" "+ this.lastName +" "+ this.address +" "+ this.cityName +" "+ this.stateName +" "+
                 this.zipCode +" "+ this.mobileNumber;
     }
     public String getRecord(){
