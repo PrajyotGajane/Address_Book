@@ -119,7 +119,7 @@ public class addressBook {
                     break;
 
                 case 5:
-                    System.out.println("Press 1: Sort by Name 2: Sort by Zip code 3: Sort by State");
+                    System.out.println("Press 1: Sort by Name 2: Sort by city 3: Sort by State 4: Sort by zip code");
                     int choice_2 = sc.nextInt();
                     switch (choice_2){
                         case 1:
@@ -129,7 +129,27 @@ public class addressBook {
                                 }
                             }.reversed());
                             break;
-
+                        case 2:
+                            Collections.sort(arrayReference,new Comparator<Person>(){
+                                public int compare(Person obj1,Person obj2){
+                                    return obj2.cityName.compareTo(obj1.cityName);
+                                }
+                            }.reversed());
+                            break;
+                        case 3:
+                            Collections.sort(arrayReference,new Comparator<Person>(){
+                                public int compare(Person obj1,Person obj2){
+                                    return obj2.stateName.compareTo(obj1.stateName);
+                                }
+                            }.reversed());
+                            break;
+                        case 4:
+                            Collections.sort(arrayReference,new Comparator<Person>(){
+                                public int compare(Person obj1,Person obj2){
+                                    return obj2.zipCode - obj1.zipCode;
+                                }
+                            }.reversed());
+                            break;
                         default:
                             System.out.println("Enter valid input");
                             break;
