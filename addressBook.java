@@ -1,6 +1,7 @@
 package com.bridgelabz.addressBook;
 import java.util.*;
-
+//NOTE: multiple uses of nextLine() have been done
+//REASON: scanner does not read enter after the nextInt() so to over come this nextLine() is used multiple times after nextInt()
 //main class to choose various options
 public class addressBook {
     public static void main(String[] args) {
@@ -17,6 +18,7 @@ public class addressBook {
             int choice = sc.nextInt();
             switch (choice) {
                 case 1:
+                    //code for all the entries to be made ----------------------
                     sc.nextLine();
                     System.out.println("Enter the first name:");
                     String firstName = sc.nextLine();
@@ -32,7 +34,7 @@ public class addressBook {
                     int zipCode = sc.nextInt();
                     System.out.println("Enter the mobile number:");
                     long mobileNumber = sc.nextLong();
-                    // logic for duplicate names using iterator and equals method
+                    // logic for duplicate names using iterator and equals method----------------
                     while(count == 0) {
                         arrayReference.add(new Person(firstName, lastName, address, cityName, stateName, zipCode, mobileNumber));
                         mapCity.put(firstName,cityName);
@@ -61,6 +63,7 @@ public class addressBook {
                     count++;
                     break;
                 case 2:
+                    //code to edit information of a person -------------------------------------------------------
                     sc.nextLine();
                     System.out.println("Edit information ");
                     System.out.println("Enter the first name of the person you would like to edit details about");
@@ -109,6 +112,7 @@ public class addressBook {
                     break;
 
                 case 3:
+                    //code to delete a contact -------------------------------------------------------
                     sc.nextLine();
                     System.out.println("Enter the first name of the contact to be deleted");
                     String delete = sc.nextLine();
@@ -125,16 +129,19 @@ public class addressBook {
                         System.out.println(cont);
                     break;
                 case 4:
+                    //code to view by user choice --------------------------------------
                     System.out.println("1: All contacts 2: By city 3:By state");
                     int choice3 = sc.nextInt();
                     switch (choice3){
                         case 1:
+                            //to view all contents of the address book
                             for(Person cont : arrayReference) {
                                 System.out.println(cont);
                             }
                             break;
 
                         case 2:
+                            //to view people and their cities
                             for (Iterator iter = mapCity.entrySet().iterator(); iter.hasNext();) {
                                 Map.Entry e = (Map.Entry) iter.next();
                                 // prints all the people in map with their corresponding cities
@@ -142,6 +149,7 @@ public class addressBook {
                             }
                             break;
                         case 3:
+                            //to view people and their staters
                             for (Iterator iter = mapState.entrySet().iterator(); iter.hasNext();) {
                                 Map.Entry e = (Map.Entry) iter.next();
                                 // printss all the people in map with their corresponding states
@@ -155,6 +163,8 @@ public class addressBook {
 
                     break;
                 case 5:
+                    //to sort by various parameters using collections sort method and comparator
+                    //comparing data withing the objects using compareTo method and '-' for numeric values
                     System.out.println("Press 1: Sort by Name 2: Sort by city 3: Sort by State 4: Sort by zip code");
                     int choice_2 = sc.nextInt();
                     switch (choice_2){
@@ -194,6 +204,7 @@ public class addressBook {
                         System.out.println(content);
                     break;
                 case 6:
+                    //code to view people from a particular city or state depending on user input
                     System.out.println("Search people");
                     System.out.println("1:By city    2:By state");
                     int choiceFour = sc.nextInt();
@@ -229,6 +240,7 @@ public class addressBook {
                     }
                     break;
                 case 9:
+                    //to break the while loop endKey variable is set to false
                     endKey=false;
                     break;
 
