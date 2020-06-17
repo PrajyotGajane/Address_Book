@@ -13,7 +13,7 @@ public class addressBook {
         System.out.println("Welcome to Address book");
         System.out.println("Select options from the menu");
         while (endKey) {
-            System.out.println("1.Add  2.Edit  3.Delete 4.View 5:Sort 9:Exit");
+            System.out.println("1.Add  2.Edit  3.Delete  4.View  5:Sort  6:Search      9:EXIT");
             int choice = sc.nextInt();
             switch (choice) {
                 case 1:
@@ -49,7 +49,6 @@ public class addressBook {
                                 duplicate=1;
                                 break;
                             }
-                            //System.out.println("else part");
                         }
                         if (duplicate == 1)
                             break;
@@ -65,7 +64,6 @@ public class addressBook {
                     sc.nextLine();
                     System.out.println("Edit information ");
                     System.out.println("Enter the first name of the person you would like to edit details about");
-                    sc.nextLine();
                     String update = sc.nextLine();
                     //iterator to iterate through list
                     for (ListIterator<Person> iter = arrayReference.listIterator(); iter.hasNext(); ) {
@@ -77,21 +75,26 @@ public class addressBook {
                                 case 1:
                                     sc.nextLine();
                                     System.out.println("Update new address:");
-                                    data.cityName = sc.nextLine();
+                                    data.address = sc.nextLine();
                                     break;
                                 case 2:
+                                    sc.nextLine();
                                     System.out.println("Update the city:");
                                     data.cityName = sc.nextLine();
                                     break;
                                 case 3:
+                                    sc.nextLine();
                                     System.out.println("Update the state");
                                     data.stateName = sc.nextLine();
                                     break;
                                 case 4:
+                                    sc.nextLine();
                                     System.out.println("Update the mobile zip code");
                                     data.zipCode = sc.nextInt();
+                                    sc.nextLine();
                                     break;
                                 case 5:
+                                    sc.nextLine();
                                     System.out.println("Update the mobile number");
                                     data.mobileNumber = sc.nextLong();
                                 default:
@@ -104,11 +107,12 @@ public class addressBook {
                     for (Person cont : arrayReference)
                         System.out.println(cont);
                     break;
+
                 case 3:
                     sc.nextLine();
                     System.out.println("Enter the first name of the contact to be deleted");
                     String delete = sc.nextLine();
-                    //iterator to iterate through list
+                    //iterator to iterate through list to find the name and delete it
                     for (ListIterator<Person> iter = arrayReference.listIterator(); iter.hasNext(); ) {
                         Person data = iter.next();
                         if (delete.equals(data.getRecord())) {
@@ -159,28 +163,28 @@ public class addressBook {
                                 public int compare(Person obj1,Person obj2){
                                     return obj2.firstName.compareTo(obj1.firstName);
                                 }
-                            }.reversed());
+                            }.reversed());//to show in ascending order
                             break;
                         case 2:
                             Collections.sort(arrayReference,new Comparator<Person>(){
                                 public int compare(Person obj1,Person obj2){
                                     return obj2.cityName.compareTo(obj1.cityName);
                                 }
-                            }.reversed());
+                            }.reversed());//to show in ascending order
                             break;
                         case 3:
                             Collections.sort(arrayReference,new Comparator<Person>(){
                                 public int compare(Person obj1,Person obj2){
                                     return obj2.stateName.compareTo(obj1.stateName);
                                 }
-                            }.reversed());
+                            }.reversed());//to show in ascending order
                             break;
                         case 4:
                             Collections.sort(arrayReference,new Comparator<Person>(){
                                 public int compare(Person obj1,Person obj2){
                                     return obj2.zipCode - obj1.zipCode;
                                 }
-                            }.reversed());
+                            }.reversed());//to show in ascending order
                             break;
                         default:
                             System.out.println("Enter valid input");
@@ -188,6 +192,41 @@ public class addressBook {
                     }
                     for(Person content : arrayReference)
                         System.out.println(content);
+                    break;
+                case 6:
+                    System.out.println("Search people");
+                    System.out.println("1:By city    2:By state");
+                    int choiceFour = sc.nextInt();
+                    switch (choiceFour){
+                        case 1:
+                            sc.nextLine();
+                            System.out.println("Enter the name of the city you want to view people from");
+                            String search = sc.nextLine();
+                            System.out.println("People in "+search+"are");
+                            for (Iterator iter = mapCity.entrySet().iterator(); iter.hasNext();) {
+                                Map.Entry e = (Map.Entry) iter.next();
+                                if (search.equals(e.getValue())) {
+                                    // view all the people from user given city in string 'search'
+                                    System.out.println(" "+e.getKey());
+                                }
+                            }
+                            break;
+                        case 2:
+                            sc.nextLine();
+                            String searchState = sc.nextLine();
+                            System.out.println("People in "+searchState+"are");
+                            for (Iterator iter = mapState.entrySet().iterator(); iter.hasNext();) {
+                                Map.Entry e = (Map.Entry) iter.next();
+                                if (searchState.equals(e.getValue())) {
+                                    // view all the people from user given state in string 'searchState'
+                                    System.out.println(" "+e.getKey());
+                                }
+                            }
+                            break;
+                        default:
+                            System.out.println("Invalid input");
+                            break;
+                    }
                     break;
                 case 9:
                     endKey=false;
