@@ -1,5 +1,4 @@
 package com.bridgelabz.addressBook;
-
 import java.util.ArrayList;
 import java.util.ListIterator;
 import java.util.Scanner;
@@ -30,6 +29,7 @@ public class addressBook {
         System.out.println("Enter the first name of the person you would like to edit details about");
         sc.nextLine();
         String update = sc.nextLine();
+        //iterator to iterate through list
         for(ListIterator<Person> iter = arrayReference.listIterator(); iter.hasNext();){
             Person data = iter.next();
             if(update.equals(data.getRecord())){
@@ -65,6 +65,21 @@ public class addressBook {
         }
         for(Person cont : arrayReference)
                 System.out.println(cont);
+        sc.nextLine();
+        System.out.println("Enter the first name of the contact to be deleted");
+        String delete = sc.nextLine();
+        //iterator to iterate through list
+        for(ListIterator<Person> iter = arrayReference.listIterator(); iter.hasNext();){
+            Person data = iter.next();
+            if(delete.equals(data.getRecord())){
+                iter.remove();
+            }
+        }
+        System.out.println("Contact deleted");
+        //to display all the contact in the array list
+        for(Person cont : arrayReference)
+            System.out.println(cont);
+
     }
 }
 //class to store contacts
