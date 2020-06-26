@@ -4,7 +4,6 @@ import com.bridgelabz.AddressBook.service.Function;
 import java.util.*;
 //NOTE: multiple uses of nextLine() have been done
 //REASON: scanner does not read enter after the nextInt() so to over come this nextLine() is used multiple times after nextInt()
-//main class to choose various options
 public class addressBook {
     public static void main(String[] args) {
         ArrayList<Person> arrayReference = new ArrayList<>();
@@ -12,7 +11,6 @@ public class addressBook {
         HashMap<String,String> mapState=new HashMap<>();
         Scanner sc = new Scanner(System.in);
         boolean endKey = true;
-        int count = 0;
         System.out.println("Welcome to Address book");
         System.out.println("Select options from the menu");
         while (endKey) {
@@ -21,15 +19,11 @@ public class addressBook {
             switch (choice) {
                 case 1:
                     //code for all the entries to be made ----------------------
-                    Person person = Function.addContact();
-                    arrayReference.add(person);
-                    mapCity.put(person.firstName,person.cityName);
-                    mapState.put(person.firstName,person.stateName);
+                    Function.addContact(arrayReference, mapCity, mapState);
                     break;
                 case 2:
                     Function.editContactDetails(arrayReference);
                     break;
-
                 case 3:
                     Function.deleteContact(arrayReference);
                     break;
@@ -57,6 +51,3 @@ public class addressBook {
         }
     }
 }
-
-
-
