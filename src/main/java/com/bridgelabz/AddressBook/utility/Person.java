@@ -1,4 +1,4 @@
-package com.bridgelabz.AddressBook.Utility;
+package com.bridgelabz.AddressBook.utility;
 
 //class for contacts
 public class Person{
