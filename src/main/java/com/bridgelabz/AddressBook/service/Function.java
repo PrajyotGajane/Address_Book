@@ -3,9 +3,7 @@ import com.bridgelabz.AddressBook.utility.Person;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 public class Function {
-      int count=0;
       /**
        * to add details to Person class
        * @return object of Person class
@@ -59,6 +57,12 @@ public class Function {
                   System.out.println("Enter valid data");
             }
       }
+
+      /**
+       * to check if the string is entirely made up of characters and not integers
+       * @param checkString
+       * @return validString
+       */
       public static boolean stringChecker(String checkString){
             Pattern stringChecker = Pattern.compile("([a-zA-Z]+)");
             Matcher matchString = stringChecker.matcher(checkString);
@@ -127,8 +131,8 @@ public class Function {
                         break;
                   case 2:
                         //to view people and their cities
-                        for (Iterator iter = mapCity.entrySet().iterator(); iter.hasNext();) {
-                              Map.Entry e = (Map.Entry) iter.next();
+                        for (Iterator iterator = mapCity.entrySet().iterator(); iterator.hasNext();) {
+                              Map.Entry e = (Map.Entry) iterator.next();
                               // prints all the people in map with their corresponding cities
                               System.out.println(e.getKey()+" from "+e.getValue());
                         }
@@ -163,8 +167,8 @@ public class Function {
                               System.out.println("Enter the name of the city you want to view people from");
                               String search = sc.nextLine();
                               System.out.println("People in " + search + " are");
-                              for (Iterator iter = mapCity.entrySet().iterator(); iter.hasNext(); ) {
-                                    Map.Entry e = (Map.Entry) iter.next();
+                              for (Iterator iterator = mapCity.entrySet().iterator(); iterator.hasNext(); ) {
+                                    Map.Entry e = (Map.Entry) iterator.next();
                                     if (search.equals(e.getValue())) {
                                           // view all the people from user given city in string 'search'
                                           System.out.println(" " + e.getKey());
@@ -176,8 +180,8 @@ public class Function {
                               System.out.println("Enter the name of the state you want to view people from");
                               String searchState = sc.nextLine();
                               System.out.println("People in " + searchState + " are");
-                              for (Iterator iter = mapState.entrySet().iterator(); iter.hasNext(); ) {
-                                    Map.Entry e = (Map.Entry) iter.next();
+                              for (Iterator iterator = mapState.entrySet().iterator(); iterator.hasNext(); ) {
+                                    Map.Entry e = (Map.Entry) iterator.next();
                                     if (searchState.equals(e.getValue())) {
                                           // view all the people from user given state in string 'searchState'
                                           System.out.println(" " + e.getKey());
