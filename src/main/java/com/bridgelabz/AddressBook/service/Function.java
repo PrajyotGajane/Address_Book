@@ -57,7 +57,6 @@ public class Function {
                   System.out.println("Enter valid data");
             }
       }
-
       /**
        * to check if the string is entirely made up of characters and not integers
        * @param checkString
