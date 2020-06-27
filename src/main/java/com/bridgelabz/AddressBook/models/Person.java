@@ -1,5 +1,4 @@
-package com.bridgelabz.AddressBook.utility;
-
+package com.bridgelabz.AddressBook.models;
 //class for contacts
 public class Person{
       public String firstName;
@@ -28,5 +27,14 @@ public class Person{
       }
       public String getLastName(){
             return this.lastName;
+      }
+      public String getCityName(){
+            return this.cityName;
+      }
+      public String getStateName(){
+            return this.stateName;
+      }
+      public int getZipCode() {
+            return this.zipCode;
       }
 }

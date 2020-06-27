@@ -1,36 +1,36 @@
 package com.bridgelabz.AddressBook.service;
-import com.bridgelabz.AddressBook.utility.Person;
+import com.bridgelabz.AddressBook.models.Person;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-public class Function {
+import java.util.stream.Collectors;
+public class AddressBook {
       /**
        * to add details to Person class
        * @return object of Person class
        */
-      public static void addContact(ArrayList<Person> arrayReference, HashMap<String, String> mapCity, HashMap<String, String> mapState) {
+      public static void addContact(List<Person> arrayReference, HashMap<String, String> mapCity, HashMap<String, String> mapState) {
             Scanner sc = new Scanner(System.in);
-            int flag = 0;
+            boolean flag = true;
             boolean validString = false;
             try {
                   System.out.println("Enter the first name:");
                   String firstName = sc.nextLine();
-                  validString = Function.stringChecker(firstName);
+                  validString = AddressBook.stringChecker(firstName);
                   if (validString) {
                         validString = false;
                         System.out.println("Enter the last name:");
                         String lastName = sc.nextLine();
-                        validString = Function.stringChecker(lastName);
+                        validString = AddressBook.stringChecker(lastName);
                         if (validString) {
                               String firstLastName = firstName + lastName;
                               for (Person person : arrayReference) {
-                                    System.out.println("in for loop");
                                     if (firstLastName.equals(person.getRecord() + person.getLastName())) {
                                           System.out.println("Contact already exists");
-                                          flag = 1;
+                                          flag = false;
                                     }
                               }
-                              if (flag == 0) {
+                              if (flag) {
                                     System.out.println("Enter your address:");
                                     String address = sc.nextLine();
                                     System.out.println("Enter the City name:");
@@ -52,8 +52,7 @@ public class Function {
                   } else{
                         System.out.println("Enter valid first name");
                   }
-
-            } catch (NullPointerException | InputMismatchException e) {
+            } catch (InputMismatchException e) {
                   System.out.println("Enter valid data");
             }
       }
@@ -72,61 +71,56 @@ public class Function {
        * to sort the contacts as user wishes
        * @param arrayReference
        */
-      public static void sortContact(ArrayList<Person> arrayReference){
+      public static void sortContact(List<Person> arrayReference){
             Scanner sc = new Scanner(System.in);
-
             System.out.println("Press 1: Sort by Name 2: Sort by city 3: Sort by State 4: Sort by zip code");
             int choice_2 = sc.nextInt();
             switch (choice_2){
                   case 1:
-                        Collections.sort(arrayReference,new Comparator<Person>(){
-                              public int compare(Person obj1,Person obj2){
-                                    return obj2.firstName.compareTo(obj1.firstName);
-                              }
-                        }.reversed());//to show in ascending order
+                        List<Person> sortedList = arrayReference.stream()
+                                .sorted(Comparator.comparing(Person::getRecord))
+                                .collect(Collectors.toList());
+                        sortedList.forEach(System.out::println);
                         break;
                   case 2:
-                        Collections.sort(arrayReference,new Comparator<Person>(){
-                              public int compare(Person obj1,Person obj2){
-                                    return obj2.cityName.compareTo(obj1.cityName);
-                              }
-                        }.reversed());//to show in ascending order
+                        List<Person> sortedListCity = arrayReference.stream()
+                                .sorted(Comparator.comparing(Person::getCityName))
+                                .collect(Collectors.toList());
+                        sortedListCity.forEach(System.out::println);
                         break;
                   case 3:
-                        Collections.sort(arrayReference,new Comparator<Person>(){
-                              public int compare(Person obj1,Person obj2){
-                                    return obj2.stateName.compareTo(obj1.stateName);
-                              }
-                        }.reversed());//to show in ascending order
+                        List<Person> sortedListState = arrayReference.stream()
+                                .sorted(Comparator.comparing(Person::getStateName))
+                                .collect(Collectors.toList());
+                        sortedListState.forEach(System.out::println);
                         break;
                   case 4:
-                        Collections.sort(arrayReference,new Comparator<Person>(){
-                              public int compare(Person obj1,Person obj2){
-                                    return obj2.zipCode - obj1.zipCode;
-                              }
-                        }.reversed());//to show in ascending order
+                        List<Person> sortedListZip = arrayReference.stream()
+                                .sorted(Comparator.comparing(Person::getZipCode))
+                                .collect(Collectors.toList());
+                        sortedListZip.forEach(System.out::println);
                         break;
                   default:
                         System.out.println("Enter valid input");
                         break;
             }
-            Function.displayAll(arrayReference);
+            //AddressBookFunction.displayAll(arrayReference);
       }
       /**
        * to display all contacts
        * @param arrayReference
        */
-      public static void displayAll(ArrayList<Person> arrayReference){
+      public static void displayAll(List<Person> arrayReference){
             arrayReference.stream().forEach(System.out::println);
       }
-      public static void viewContacts(ArrayList<Person> arrayReference, HashMap<String,String> mapCity, HashMap<String,String> mapState){
+      public static void viewContacts(List<Person> arrayReference, HashMap<String,String> mapCity, HashMap<String,String> mapState){
             Scanner sc = new Scanner(System.in);
             System.out.println("1: All contacts 2: By city 3:By state");
             int choice3 = sc.nextInt();
             switch (choice3){
                   case 1:
                         //to view all contents of the address book
-                        Function.displayAll(arrayReference);
+                        AddressBook.displayAll(arrayReference);
                         break;
                   case 2:
                         //to view people and their cities
@@ -138,8 +132,8 @@ public class Function {
                         break;
                   case 3:
                         //to view people and their states
-                        for (Iterator iter = mapState.entrySet().iterator(); iter.hasNext();) {
-                              Map.Entry e = (Map.Entry) iter.next();
+                        for (Iterator iterator = mapState.entrySet().iterator(); iterator.hasNext();) {
+                              Map.Entry e = (Map.Entry) iterator.next();
                               // prints all the people in map with their corresponding states
                               System.out.println(e.getKey()+" from "+e.getValue());
                         }
@@ -199,25 +193,25 @@ public class Function {
        * to delete contacts
        * @param arrayReference
        */
-      public static void deleteContact(ArrayList<Person> arrayReference) {
+      public static void deleteContact(List<Person> arrayReference) {
             Scanner sc = new Scanner(System.in);
             sc.nextLine();
             System.out.println("Enter the first name of the contact to be deleted");
             String delete = sc.nextLine();
-            for (ListIterator<Person> iter = arrayReference.listIterator(); iter.hasNext(); ) {
-                  Person data = iter.next();
+            for (ListIterator<Person> iterator = arrayReference.listIterator(); iterator.hasNext(); ) {
+                  Person data = iterator.next();
                   if (delete.equals(data.getRecord())) {
-                        iter.remove();
+                        iterator.remove();
                   }
             }
             System.out.println("Contact deleted");
-            Function.displayAll(arrayReference);
+            AddressBook.displayAll(arrayReference);
       }
       /**
        * edit details of contacts
        * @param arrayReference
        */
-      public static void editContactDetails(ArrayList<Person> arrayReference) {
+      public static void editContactDetails(List<Person> arrayReference) {
             Scanner sc = new Scanner(System.in);
             System.out.println("Edit information ");
             System.out.println("Enter the first name of the person you would like to edit details about");
@@ -260,6 +254,6 @@ public class Function {
                         System.out.println("Contact updated");
                   }
             }
-            Function.displayAll(arrayReference);
+            AddressBook.displayAll(arrayReference);
       }
 }
