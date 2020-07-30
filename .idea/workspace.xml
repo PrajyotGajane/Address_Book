@@ -19,12 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c0f28168-3e9b-42fa-922e-430bfd61ca3e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/AddressBook.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bridgelabz/AddressBook/models/Person.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bridgelabz/AddressBook/service/AddressBook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bridgelabz/AddressBook/service/AddressBook.java" afterDir="false" />
-    </list>
+    <list default="true" id="c0f28168-3e9b-42fa-922e-430bfd61ca3e" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -55,6 +50,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="UC11_JSON_Java_File_Handlers" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1dqc3JN91baaHvmTXyh6nQ4eAqx" />
@@ -109,5 +109,13 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="365" y="288" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1366.728@0.0.1366.728" timestamp="1593156480087" />
+    <state x="129" y="55" key="MergeDialog" timestamp="1596133770873">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="129" y="55" key="MergeDialog/0.0.1366.728@0.0.1366.728" timestamp="1596133770873" />
+    <state x="462" y="77" key="git4idea.branch.GitSmartOperationDialog" timestamp="1596133757575">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="462" y="77" key="git4idea.branch.GitSmartOperationDialog/0.0.1366.728@0.0.1366.728" timestamp="1596133757575" />
   </component>
 </project>
