@@ -1,13 +1,18 @@
 package com.bridgelabz.AddressBook.controller;
 import com.bridgelabz.AddressBook.models.Person;
 import com.bridgelabz.AddressBook.service.AddressBook;
+import com.bridgelabz.AddressBook.service.JavaFileHandler;
+
 import java.util.*;
 public class AddressBookMain {
+    private static String JSON_FOR_ADDRESS_BOOK = "./JsonUsingJavaFileHandler.json";
+
     public static void main(String[] args) {
-        List<Person> arrayReference = new ArrayList<>();
+        List<Person> contactsDetailsList = new ArrayList<>();
         HashMap<String,String> mapCity= new HashMap<>();
         HashMap<String,String> mapState=new HashMap<>();
         Scanner sc = new Scanner(System.in);
+        contactsDetailsList.add(new Person("Prajyot", "Gaj", "Hno 4", "Gogol", "Gta", 23232, 345345345));
         boolean endKey = true;
         System.out.println("Welcome to Address book");
         System.out.println("Select options from the menu");
@@ -16,23 +21,26 @@ public class AddressBookMain {
             int choice = sc.nextInt();
             switch (choice) {
                 case 1:
-                    AddressBook.addContact(arrayReference, mapCity, mapState);
+                    AddressBook.addContact(contactsDetailsList, mapCity, mapState);
                     break;
                 case 2:
-                    AddressBook.editContactDetails(arrayReference);
+                    AddressBook.editContactDetails(contactsDetailsList);
                     break;
                 case 3:
-                    AddressBook.deleteContact(arrayReference);
+                    AddressBook.deleteContact(contactsDetailsList);
                     break;
                 case 4:
-                    AddressBook.viewContacts(arrayReference, mapCity, mapState);
+                    AddressBook.viewContacts(contactsDetailsList, mapCity, mapState);
                     break;
                 case 5:
-                    AddressBook.sortContact(arrayReference);
-                    arrayReference.stream().forEach(System.out::println);
+                    AddressBook.sortContact(contactsDetailsList);
+                    contactsDetailsList.stream().forEach(System.out::println);
                     break;
                 case 6:
                     AddressBook.customPlace(mapCity, mapState);
+                    break;
+                case 7:
+                    new JavaFileHandler(contactsDetailsList);
                     break;
                 case 9:
                     endKey=false;
