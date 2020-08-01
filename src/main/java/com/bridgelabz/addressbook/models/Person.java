@@ -1,4 +1,4 @@
-package com.bridgelabz.AddressBook.models;
+package com.bridgelabz.addressbook.models;
 //class for contacts
 public class Person{
       public String firstName;
@@ -18,11 +18,14 @@ public class Person{
             this.zipCode = zipCode;
             this.mobileNumber = mobileNumber;
       }
-      public String toString(){
-            return this.firstName+" "+ this.lastName +" "+ this.address +" "+ this.cityName +" "+ this.stateName +" "+
-                    this.zipCode +" "+ this.mobileNumber;
+      public String toString() {
+            return "Name: " + this.firstName + " " + this.lastName + "\nAddress: " + this.address + "\nCity: " + this.cityName + "\nState: " + this.stateName + "\nZipcode: " +
+                    this.zipCode + "\nMobile number: " + this.mobileNumber + "\n";
       }
-      public String getRecord(){
+      public String getName(){
+            return this.firstName + " " +this.lastName;
+      }
+      public String getFirstName() {
             return this.firstName;
       }
       public String getLastName(){
