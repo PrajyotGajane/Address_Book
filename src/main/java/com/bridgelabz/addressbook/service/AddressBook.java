@@ -148,8 +148,6 @@ public class AddressBook {
                               // prints all the people in map with their corresponding cities
                               System.out.println(cities.getKey() + " from " + cities.getValue());
                         }
-//                        contactsDetailsList.sort(Comparator.comparing(personCity -> personCity.cityName));
-//                        contactsDetailsList.forEach(s -> System.out.println(s.getCityName().c));
                         break;
                   case 3:
                         //to view people and their states

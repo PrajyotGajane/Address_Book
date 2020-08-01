@@ -1,6 +1,7 @@
 package com.bridgelabz.addressbook.models;
+
 //class for contacts
-public class Person{
+public class Person {
       public String firstName;
       public String lastName;
       public String address;
@@ -8,8 +9,9 @@ public class Person{
       public String stateName;
       public String zipCode;
       public String mobileNumber;
+
       public Person(String firstName, String lastName, String address, String cityName, String stateName, String zipCode, String
-              mobileNumber){
+              mobileNumber) {
             this.firstName = firstName;
             this.lastName = lastName;
             this.address = address;
@@ -18,25 +20,32 @@ public class Person{
             this.zipCode = zipCode;
             this.mobileNumber = mobileNumber;
       }
+
       public String toString() {
             return "Name: " + this.firstName + " " + this.lastName + "\nAddress: " + this.address + "\nCity: " + this.cityName + "\nState: " + this.stateName + "\nZipcode: " +
                     this.zipCode + "\nMobile number: " + this.mobileNumber + "\n";
       }
-      public String getName(){
-            return this.firstName + " " +this.lastName;
+
+      public String getName() {
+            return this.firstName + " " + this.lastName;
       }
+
       public String getFirstName() {
             return this.firstName;
       }
-      public String getLastName(){
+
+      public String getLastName() {
             return this.lastName;
       }
-      public String getCityName(){
+
+      public String getCityName() {
             return this.cityName;
       }
-      public String getStateName(){
+
+      public String getStateName() {
             return this.stateName;
       }
+
       public String getZipCode() {
             return this.zipCode;
       }
