@@ -6,9 +6,9 @@ public class Person{
       public String address;
       public String cityName;
       public String stateName;
-      public int zipCode;
-      public long mobileNumber;
-      public Person(String firstName, String lastName, String address, String cityName, String stateName, int zipCode, long
+      public String zipCode;
+      public String mobileNumber;
+      public Person(String firstName, String lastName, String address, String cityName, String stateName, String zipCode, String
               mobileNumber){
             this.firstName = firstName;
             this.lastName = lastName;
@@ -37,7 +37,15 @@ public class Person{
       public String getStateName(){
             return this.stateName;
       }
-      public int getZipCode() {
+      public String getZipCode() {
             return this.zipCode;
+      }
+
+      public String getAddress() {
+            return this.address;
+      }
+
+      public String getMobileNumber() {
+            return this.mobileNumber;
       }
 }

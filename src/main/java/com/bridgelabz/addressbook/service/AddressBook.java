@@ -42,10 +42,10 @@ public class AddressBook {
                                     System.out.println("Enter the State name:");
                                     String stateName = sc.nextLine();
                                     System.out.println("Enter the zip code:");
-                                    int zipCode = sc.nextInt();
+                                    String zipCode = sc.nextLine();
                                     sc.nextLine();
                                     System.out.println("Enter the mobile number:");
-                                    long mobileNumber = sc.nextLong();
+                                    String mobileNumber = sc.nextLine();
                                     contactsDetailsList.add(new Person(firstName, lastName, address, cityName, stateName, zipCode, mobileNumber));
                                     mapCity.put(firstName, cityName);
                                     mapState.put(firstName, stateName);
@@ -97,13 +97,13 @@ public class AddressBook {
                               case 4:
                                     sc.nextLine();
                                     System.out.println("Update the mobile zip code");
-                                    data.zipCode = sc.nextInt();
+                                    data.zipCode = sc.nextLine();
                                     sc.nextLine();
                                     break;
                               case 5:
                                     sc.nextLine();
                                     System.out.println("Update the mobile number");
-                                    data.mobileNumber = sc.nextLong();
+                                    data.mobileNumber = sc.nextLine();
                               default:
                                     System.out.println("Enter valid input");
                                     break;

@@ -60,7 +60,7 @@ public class JsonSimpleIO {
                     (String) personObj.get("Address"),
                     (String) personObj.get("City"),
                     (String) personObj.get("State"),
-                    Integer.parseInt(((Long) personObj.get("Zipcode")).toString()),
-                    (Long) personObj.get("Mobile Number"));
+                    (String) personObj.get("Zipcode"),
+                    (String) personObj.get("Mobile Number"));
       }
 }
