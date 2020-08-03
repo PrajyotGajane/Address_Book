@@ -1,7 +1,10 @@
 package com.bridgelabz.addressbook.models;
 
+import com.opencsv.bean.CsvBindByPosition;
+
 //class for contacts
 public class Person {
+      @CsvBindByPosition(required = true, position = 1)
       public String firstName;
       public String lastName;
       public String address;

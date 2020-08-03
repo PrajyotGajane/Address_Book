@@ -43,7 +43,6 @@ public class AddressBook {
                                     String stateName = sc.nextLine();
                                     System.out.println("Enter the zip code:");
                                     String zipCode = sc.nextLine();
-                                    sc.nextLine();
                                     System.out.println("Enter the mobile number:");
                                     String mobileNumber = sc.nextLine();
                                     contactsDetailsList.add(new Person(firstName, lastName, address, cityName, stateName, zipCode, mobileNumber));
@@ -62,7 +61,7 @@ public class AddressBook {
       }
 
       private boolean stringChecker(String checkString) {
-            Pattern stringChecker = Pattern.compile("([a-zA-Z]+)");
+            Pattern stringChecker = Pattern.compile("([A-Z][a-z]+)");
             Matcher matchString = stringChecker.matcher(checkString);
             boolean validString = matchString.matches();
             return validString;
