@@ -2,6 +2,7 @@ package com.bridgelabz.addressbook.controller;
 
 import com.bridgelabz.addressbook.models.Person;
 import com.bridgelabz.addressbook.service.AddressBook;
+import com.bridgelabz.addressbook.utility.GsonIO;
 import com.bridgelabz.addressbook.utility.JsonSimpleIO;
 import com.bridgelabz.addressbook.utility.OpenCSVIO;
 
@@ -15,14 +16,12 @@ public class AddressBookMain {
             AddressBookMain addressBookMain = new AddressBookMain();
             final String ADDRESS_BOOK_FILE_PATH_JSON = "src/main/resources/AddressBookList.json";
             final String ADDRESS_BOOK_FILE_PATH_CSV = "src/main/resources/AddressBookListCSV.csv";
+            final String ADDRESS_BOOK_FILE_PATH_GSON = "src/main/resources/AddressBookListGSON.json";
             List<Person> contactsDetailsList = new ArrayList<>();
             JsonSimpleIO jsonSimpleIO = new JsonSimpleIO(contactsDetailsList);
             OpenCSVIO openCSVIO = new OpenCSVIO(contactsDetailsList);
+            GsonIO gsonIO = new GsonIO(contactsDetailsList);
             AddressBook addressBook = new AddressBook(contactsDetailsList);
-
-//            contactsDetailsList.add(new Person("Prajyot", "Gajane", "Hno 3", "Margao", "Goa", "403601", "345345345"));
-//            contactsDetailsList.add(new Person("Rahul", "Banjare", "Hno 4", "Banglore", "Karnataka", "200001", "993423344"));
-//            contactsDetailsList.add(new Person("Aniket", "Dakhare", "Hno 5", "Pune", "Maharashtra", "100011", "454352435"));
             HashMap<String, String> mapCity = new HashMap<>();
             HashMap<String, String> mapState = new HashMap<>();
             Scanner sc = new Scanner(System.in);
@@ -30,8 +29,8 @@ public class AddressBookMain {
             System.out.println("Welcome to Address book");
             System.out.println("Select options from the menu");
             while (endKey) {
-                  System.out.println("1.Add  2.Edit  3.Delete  4.View  5:Sort  6:Search  7:Save Json file" +
-                          "  8:Save CSV file    9:EXIT");
+                  System.out.println("1.Add  2.Edit  3.Delete  4.View  5:Sort  6:Search  \n7:Save/Read Json file" +
+                          "  8:Save/Read CSV file  9:Save/Read GSON file  10:EXIT");
                   int choice = sc.nextInt();
                   switch (choice) {
                         case 1:
@@ -57,6 +56,35 @@ public class AddressBookMain {
                               break;
                         case 8:
                               addressBookMain.saveCSVType(openCSVIO, ADDRESS_BOOK_FILE_PATH_CSV);
+                              break;
+                        case 9:
+                              addressBookMain.saveGSONType(gsonIO,ADDRESS_BOOK_FILE_PATH_GSON);
+                              break;
+                        case 10:
+                              endKey = false;
+                              break;
+                        default:
+                              System.out.println("Choose valid input");
+                              break;
+                  }
+            }
+      }
+
+      private void saveGSONType(GsonIO gsonIO, String address_book_file_path_gson) {
+            System.out.println("Choose operation for csv file");
+            Scanner scanner = new Scanner(System.in);
+            boolean endKey = true;
+            while (endKey) {
+                  System.out.println("1: Gson Read    2: Gson Write     9: Exit");
+                  int choice;
+                  choice = scanner.nextInt();
+                  scanner.nextLine();
+                  switch (choice) {
+                        case 1:
+                              gsonIO.readFromJsonWithGSON(address_book_file_path_gson);
+                              break;
+                        case 2:
+                              gsonIO.writeToJsonWithGSON(address_book_file_path_gson);
                               break;
                         case 9:
                               endKey = false;
