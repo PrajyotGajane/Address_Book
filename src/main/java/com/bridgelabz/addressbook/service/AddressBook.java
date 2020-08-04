@@ -2,233 +2,157 @@ package com.bridgelabz.addressbook.service;
 
 
 import com.bridgelabz.addressbook.models.Person;
+import com.bridgelabz.addressbook.utility.GsonIO;
+import com.bridgelabz.addressbook.utility.JsonSimpleIO;
+import com.bridgelabz.addressbook.utility.OpenCSVIO;
+import com.bridgelabz.addressbook.utility.UserInputs;
 
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class AddressBook {
-      List<Person> contactsDetailsList;
-
-      public AddressBook(List<Person> contactsDetailsList) {
-            this.contactsDetailsList = contactsDetailsList;
+      private final List<Person> contactsDetailsList = new ArrayList<>();
+      public boolean isContactPresent(Person personContact) {
+            return contactsDetailsList.stream().anyMatch(person -> person == personContact);
       }
 
-      public void addContact(HashMap<String, String> mapCity, HashMap<String, String> mapState) {
-            Scanner sc = new Scanner(System.in);
-            boolean flag = true;
-            boolean validString;
-            try {
-                  System.out.println("Enter the first name:");
-                  String firstName = sc.nextLine();
-                  validString = stringChecker(firstName);
-                  if (validString) {
-                        System.out.println("Enter the last name:");
-                        String lastName = sc.nextLine();
-                        validString = stringChecker(lastName);
-                        if (validString) {
-                              String firstLastName = firstName + lastName;
-                              for (Person person : contactsDetailsList) {
-                                    if (firstLastName.equals(person.getFirstName() + person.getLastName())) {
-                                          System.out.println("Contact already exists");
-                                          flag = false;
-                                    }
-                              }
-                              if (flag) {
-                                    System.out.println("Enter your address:");
-                                    String address = sc.nextLine();
-                                    System.out.println("Enter the City name:");
-                                    String cityName = sc.nextLine();
-                                    System.out.println("Enter the State name:");
-                                    String stateName = sc.nextLine();
-                                    System.out.println("Enter the zip code:");
-                                    String zipCode = sc.nextLine();
-                                    System.out.println("Enter the mobile number:");
-                                    String mobileNumber = sc.nextLine();
-                                    contactsDetailsList.add(new Person(firstName, lastName, address, cityName, stateName, zipCode, mobileNumber));
-                                    mapCity.put(firstName, cityName);
-                                    mapState.put(firstName, stateName);
-                              }
-                        } else {
-                              System.out.println("Enter valid last name");
-                        }
-                  } else {
-                        System.out.println("Enter valid first name");
-                  }
-            } catch (InputMismatchException e) {
-                  System.out.println("Enter valid data");
-            }
+      public void addContact(Person personDetails) {
+            contactsDetailsList.add(personDetails);
       }
 
-      private boolean stringChecker(String checkString) {
-            Pattern stringChecker = Pattern.compile("([A-Z][a-z]+)");
-            Matcher matchString = stringChecker.matcher(checkString);
-            boolean validString = matchString.matches();
-            return validString;
+
+      public void editContactDetails(String firstName, String lastName) {
+            Person personDetails = findPersonObject(firstName, lastName);
+            if (personDetails != null) {
+                  addContact(new UserInputs().addDetails(personDetails));
+                  contactsDetailsList.remove(personDetails);
+            } else
+                  System.out.println("Record does not exist");
       }
 
-      public void editContactDetails(List<Person> contactsDetailsList) {
-            Scanner sc = new Scanner(System.in);
-            System.out.println("Edit information ");
-            System.out.println("Enter the name of the person you would like to edit details about");
-            String update = sc.nextLine();
-            for (ListIterator<Person> listIterator = contactsDetailsList.listIterator(); listIterator.hasNext(); ) {
-                  Person data = listIterator.next();
-                  if (update.equals(data.getName())) {
-                        System.out.println("Update 1: Address 2:City 3:State 4:Zip code 5: Mobile Number");
-                        int choice_2 = sc.nextInt();
-                        switch (choice_2) {
-                              case 1:
-                                    sc.nextLine();
-                                    System.out.println("Update new address:");
-                                    data.address = sc.nextLine();
-                                    break;
-                              case 2:
-                                    sc.nextLine();
-                                    System.out.println("Update the city:");
-                                    data.cityName = sc.nextLine();
-                                    break;
-                              case 3:
-                                    sc.nextLine();
-                                    System.out.println("Update the state");
-                                    data.stateName = sc.nextLine();
-                                    break;
-                              case 4:
-                                    sc.nextLine();
-                                    System.out.println("Update the mobile zip code");
-                                    data.zipCode = sc.nextLine();
-                                    sc.nextLine();
-                                    break;
-                              case 5:
-                                    sc.nextLine();
-                                    System.out.println("Update the mobile number");
-                                    data.mobileNumber = sc.nextLine();
-                              default:
-                                    System.out.println("Enter valid input");
-                                    break;
-                        }
-                        System.out.println("Contact updated");
-                  }
-            }
-            displayAll(contactsDetailsList);
+      public void displayAll() {
+            contactsDetailsList.forEach(System.out::println);
       }
 
-      private static void displayAll(List<Person> contactsDetailsList) {
-            contactsDetailsList.stream().forEach(System.out::println);
-      }
-
-      public void deleteContact() {
-            Scanner sc = new Scanner(System.in);
-            sc.nextLine();
-            System.out.println("Enter the name of the contact to be deleted");
-            String delete = sc.nextLine();
-            for (ListIterator<Person> iterator = contactsDetailsList.listIterator(); iterator.hasNext(); ) {
-                  Person data = iterator.next();
-                  if (delete.equals(data.getName())) {
-                        iterator.remove();
-                  }
-            }
+      public void deleteContact(String firstName, String lastName) {
+            Person personDetails = findPersonObject(firstName, lastName);
+            if (personDetails != null)
+                  contactsDetailsList.remove(personDetails);
+            else
+                  System.out.println("Record does not exist");
             System.out.println("Contact deleted");
-            displayAll(contactsDetailsList);
+            displayAll();
       }
 
-      public void viewContacts(HashMap<String, String> mapCity, HashMap<String, String> mapState) {
-            Scanner sc = new Scanner(System.in);
-            System.out.println("1: All contacts 2: By city 3:By state");
-            int choice3 = sc.nextInt();
-            switch (choice3) {
-                  case 1:
-                        displayAll(contactsDetailsList);
-                        break;
-                  case 2:
-                        //to view people and their cities
-                        for (Iterator iterator = mapCity.entrySet().iterator(); iterator.hasNext(); ) {
-                              Map.Entry cities = (Map.Entry) iterator.next();
-                              // prints all the people in map with their corresponding cities
-                              System.out.println(cities.getKey() + " from " + cities.getValue());
-                        }
-                        break;
-                  case 3:
-                        //to view people and their states
-                        for (Map.Entry<String, String> stringStringEntry : mapState.entrySet()) {
-                              Map.Entry states = stringStringEntry;
-                              // prints all the people in map with their corresponding states
-                              System.out.println(states.getKey() + " from " + states.getValue());
-                        }
-                        break;
-                  default:
-                        System.out.println("Invalid input");
-                        break;
-            }
-      }
-
-      public void sortContact() {
-            Scanner sc = new Scanner(System.in);
-            System.out.println("Press 1: Sort by Name 2: Sort by city 3: Sort by State 4: Sort by zip code");
-            int choice_2 = sc.nextInt();
-            sc.nextLine();
+      public void sortContact(int choice_2) {
             switch (choice_2) {
                   case 1:
                         contactsDetailsList.sort(Comparator.comparing(personName -> personName.firstName));
-                        contactsDetailsList.forEach(System.out::println);
                         break;
                   case 2:
                         contactsDetailsList.sort(Comparator.comparing(personCity -> personCity.cityName));
-                        contactsDetailsList.forEach(System.out::println);
                         break;
                   case 3:
                         contactsDetailsList.sort(Comparator.comparing(personState -> personState.stateName));
-                        contactsDetailsList.forEach(System.out::println);
                         break;
                   case 4:
                         contactsDetailsList.sort(Comparator.comparing(personZipCode -> personZipCode.zipCode));
-                        contactsDetailsList.forEach(System.out::println);
                         break;
                   default:
                         System.out.println("Enter valid input");
                         break;
             }
+            contactsDetailsList.forEach(System.out::println);
       }
 
-      public void customPlace(HashMap<String, String> mapCity, HashMap<String, String> mapState) {
-            Scanner sc = new Scanner(System.in);
-            System.out.println("Search people");
-            System.out.println("1:By city    2:By state");
-            try {
-                  int choiceFour = sc.nextInt();
-                  switch (choiceFour) {
+      public void searchPerson(String firstName, String lastName) {
+            Person personDetails = findPersonObject(firstName, lastName);
+            if (personDetails != null)
+                  System.out.println(personDetails.toString());
+            else
+                  System.out.println("Record does not exist");
+      }
+
+      public Person findPersonObject(String firstName, String lastName) {
+            return contactsDetailsList.stream()
+                    .filter(details -> details.getFirstName().equals(firstName) && details.getLastName().equals(lastName))
+                    .findFirst().orElse(null);
+      }
+
+      public void saveGSONType(GsonIO gsonIO, String address_book_file_path_gson) {
+            System.out.println("Choose operation for csv file");
+            Scanner scanner = new Scanner(System.in);
+            boolean endKey = true;
+            while (endKey) {
+                  System.out.println("1: Gson Read    2: Gson Write     9: Exit");
+                  int choice;
+                  choice = scanner.nextInt();
+                  scanner.nextLine();
+                  switch (choice) {
                         case 1:
-                              sc.nextLine();
-                              System.out.println("Enter the name of the city you want to view people from");
-                              String search = sc.nextLine();
-                              System.out.println("People in " + search + " are");
-                              for (Iterator iterator = mapCity.entrySet().iterator(); iterator.hasNext(); ) {
-                                    Map.Entry cities = (Map.Entry) iterator.next();
-                                    if (search.equals(cities.getValue())) {
-                                          // view all the people from user given city in string 'search'
-                                          System.out.println(" " + cities.getKey());
-                                    }
-                              }
+                              gsonIO.readFromJsonWithGSON(address_book_file_path_gson, contactsDetailsList);
                               break;
                         case 2:
-                              sc.nextLine();
-                              System.out.println("Enter the name of the state you want to view people from");
-                              String searchState = sc.nextLine();
-                              System.out.println("People in " + searchState + " are");
-                              for (Iterator iterator = mapState.entrySet().iterator(); iterator.hasNext(); ) {
-                                    Map.Entry states = (Map.Entry) iterator.next();
-                                    if (searchState.equals(states.getValue())) {
-                                          // view all the people from user given state in string 'searchState'
-                                          System.out.println(" " + states.getKey());
-                                    }
-                              }
+                              gsonIO.writeToJsonWithGSON(address_book_file_path_gson, contactsDetailsList);
+                              break;
+                        case 9:
+                              endKey = false;
                               break;
                         default:
-                              System.out.println("Invalid input");
+                              System.out.println("Choose valid input");
                               break;
                   }
-            } catch (InputMismatchException e) {
-                  System.out.println("Enter valid option");
+            }
+      }
+
+      public void saveCSVType(OpenCSVIO openCSVIO, String address_book_file_path_csv) {
+            System.out.println("Choose operation for csv file");
+            Scanner scanner = new Scanner(System.in);
+            boolean endKey = true;
+            while (endKey) {
+                  System.out.println("1: CSV Read    2: CSV Write     9: Exit");
+                  int choice;
+                  choice = scanner.nextInt();
+                  scanner.nextLine();
+                  switch (choice) {
+                        case 1:
+                              openCSVIO.readFromCSVFile(address_book_file_path_csv, contactsDetailsList);
+                              break;
+                        case 2:
+                              openCSVIO.writeToCSVFile(address_book_file_path_csv, contactsDetailsList);
+                              break;
+                        case 9:
+                              endKey = false;
+                              break;
+                        default:
+                              System.out.println("Choose valid input");
+                              break;
+                  }
+            }
+      }
+
+      public void saveJsonType(JsonSimpleIO jsonSimpleIO, String filePath) {
+            System.out.println("Choose operation for json file");
+            Scanner scanner = new Scanner(System.in);
+            boolean endKey = true;
+            while (endKey) {
+                  System.out.println("1: JSON Read    2: JSON Write     9: Exit");
+                  int choice;
+                  choice = scanner.nextInt();
+                  scanner.nextLine();
+                  switch (choice) {
+                        case 1:
+                              jsonSimpleIO.jsonFileReader(filePath, contactsDetailsList);
+                              break;
+                        case 2:
+                              jsonSimpleIO.jsonFileWriter(filePath, contactsDetailsList);
+                              break;
+                        case 9:
+                              endKey = false;
+                              break;
+                        default:
+                              System.out.println("Choose valid input");
+                              break;
+                  }
             }
       }
 }

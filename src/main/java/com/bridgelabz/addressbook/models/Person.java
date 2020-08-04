@@ -13,6 +13,9 @@ public class Person {
       public String zipCode;
       public String mobileNumber;
 
+      public Person() {
+      }
+
       public Person(String firstName, String lastName, String address, String cityName, String stateName, String zipCode, String
               mobileNumber) {
             this.firstName = firstName;

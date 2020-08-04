@@ -16,13 +16,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class OpenCSVIO {
-      List<Person> contactList;
-
-      public OpenCSVIO(List<Person> contactList) {
-            this.contactList = contactList;
-      }
-
-      public void writeToCSVFile(String filePath) {
+      public void writeToCSVFile(String filePath, List<Person> contactList) {
             try (Writer writer = Files.newBufferedWriter(Paths.get(filePath))) {
                   StatefulBeanToCsv<Person> beanToCsv = new StatefulBeanToCsvBuilder(writer)
                           .build();
@@ -32,7 +26,7 @@ public class OpenCSVIO {
             }
       }
 
-      public List<Person> readFromCSVFile(String filePath) {
+      public List<Person> readFromCSVFile(String filePath, List<Person> contactList) {
             try (CSVReader csvReader = new CSVReader(new FileReader(filePath))) {
                   csvReader.readNext();
                   String[] field;

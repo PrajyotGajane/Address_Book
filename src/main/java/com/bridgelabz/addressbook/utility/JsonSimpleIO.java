@@ -12,13 +12,8 @@ import java.io.IOException;
 import java.util.List;
 
 public class JsonSimpleIO {
-      List<Person> contactListOfPerson;
 
-      public JsonSimpleIO(List<Person> contactListOfPerson) {
-            this.contactListOfPerson = contactListOfPerson;
-      }
-
-      public void jsonFileWriter(String jsonFilePath) {
+      public void jsonFileWriter(String jsonFilePath, List<Person> contactListOfPerson) {
             JSONArray personList = new JSONArray();
             contactListOfPerson.forEach(person -> {
                   JSONObject personDetails = new JSONObject();
@@ -41,7 +36,7 @@ public class JsonSimpleIO {
             }
       }
 
-      public List<Person> jsonFileReader(String jsonFilePath) {
+      public List<Person> jsonFileReader(String jsonFilePath,  List<Person> contactListOfPerson) {
             JSONParser jsonParser = new JSONParser();
             try (FileReader fileReader = new FileReader(jsonFilePath)) {
                   Object obj = jsonParser.parse(fileReader);

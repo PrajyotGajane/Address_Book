@@ -11,13 +11,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class GsonIO {
-      private final List<Person> contactList;
 
-      public GsonIO(List<Person> contactList) {
-            this.contactList = contactList;
-      }
-
-      public void writeToJsonWithGSON(String filePath) {
+      public void writeToJsonWithGSON(String filePath, List<Person> contactList) {
             String personDetail = new Gson().toJson(contactList);
             try (FileWriter writer = new FileWriter(filePath)) {
                   writer.write(personDetail);
@@ -26,7 +21,7 @@ public class GsonIO {
             }
       }
 
-      public void readFromJsonWithGSON(String filePath) {
+      public void readFromJsonWithGSON(String filePath, List<Person> contactList) {
             try {
                   Person[] personDetails = new Gson().fromJson(new FileReader(filePath), Person[].class);
                   contactList.addAll(Arrays.asList(personDetails));
