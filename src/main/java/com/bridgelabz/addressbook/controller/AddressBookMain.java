@@ -1,15 +1,11 @@
 package com.bridgelabz.addressbook.controller;
 
-import com.bridgelabz.addressbook.models.Person;
 import com.bridgelabz.addressbook.service.AddressBook;
 import com.bridgelabz.addressbook.utility.GsonIO;
 import com.bridgelabz.addressbook.utility.JsonSimpleIO;
 import com.bridgelabz.addressbook.utility.OpenCSVIO;
 import com.bridgelabz.addressbook.utility.UserInputs;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Scanner;
 
 public class AddressBookMain {
@@ -56,10 +52,10 @@ public class AddressBookMain {
                               addressBook.saveJsonType(jsonSimpleIO, ADDRESS_BOOK_FILE_PATH_JSON);
                               break;
                         case 8:
-                              addressBook.saveCSVType(openCSVIO, ADDRESS_BOOK_FILE_PATH_CSV);
+                              addressBook.saveCSVType(openCSVIO, ADDRESS_BOOK_FILE_PATH_CSV, userInputs.saveReadFileToCSV());
                               break;
                         case 9:
-                              addressBook.saveGSONType(gsonIO,ADDRESS_BOOK_FILE_PATH_GSON);
+                              addressBook.saveGSONType(gsonIO,ADDRESS_BOOK_FILE_PATH_GSON, userInputs.saveReadFileToGson());
                               break;
                         case 10:
                               endKey = false;

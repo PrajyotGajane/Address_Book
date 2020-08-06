@@ -131,4 +131,22 @@ public class UserInputs {
             return select;
       }
 
+      public int saveReadFileToGson() {
+            System.out.println("Choose operation for GSON-JSON file");
+            System.out.println("1: Gson Read    2: Gson Write     9: Exit");
+            int choice;
+            choice = scan.nextInt();
+            scan.nextLine();
+            return choice;
+      }
+
+      public int saveReadFileToCSV() {
+            System.out.println("Choose operation for CSV file");
+            System.out.println("1: CSV Read    2: CSV Write     9: Exit");
+            int choice;
+            choice = scan.nextInt();
+            scan.nextLine();
+            return choice;
+      }
+
 }

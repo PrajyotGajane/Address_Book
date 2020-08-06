@@ -9,8 +9,9 @@ import com.bridgelabz.addressbook.utility.UserInputs;
 
 import java.util.*;
 
-public class AddressBook {
+public class AddressBook extends Thread {
       private final List<Person> contactsDetailsList = new ArrayList<>();
+
       public boolean isContactPresent(Person personContact) {
             return contactsDetailsList.stream().anyMatch(person -> person == personContact);
       }
@@ -78,55 +79,31 @@ public class AddressBook {
                     .findFirst().orElse(null);
       }
 
-      public void saveGSONType(GsonIO gsonIO, String address_book_file_path_gson) {
-            System.out.println("Choose operation for csv file");
-            Scanner scanner = new Scanner(System.in);
-            boolean endKey = true;
-            while (endKey) {
-                  System.out.println("1: Gson Read    2: Gson Write     9: Exit");
-                  int choice;
-                  choice = scanner.nextInt();
-                  scanner.nextLine();
-                  switch (choice) {
-                        case 1:
-                              gsonIO.readFromJsonWithGSON(address_book_file_path_gson, contactsDetailsList);
-                              break;
-                        case 2:
-                              gsonIO.writeToJsonWithGSON(address_book_file_path_gson, contactsDetailsList);
-                              break;
-                        case 9:
-                              endKey = false;
-                              break;
-                        default:
-                              System.out.println("Choose valid input");
-                              break;
-                  }
+      public void saveGSONType(GsonIO gsonIO, String address_book_file_path_gson, int choice) {
+            switch (choice) {
+                  case 1:
+                        gsonIO.readFromJsonWithGSON(address_book_file_path_gson, contactsDetailsList);
+                        break;
+                  case 2:
+                        gsonIO.writeToJsonWithGSON(address_book_file_path_gson, contactsDetailsList);
+                        break;
+                  default:
+                        System.out.println("Choose valid input");
+                        break;
             }
       }
 
-      public void saveCSVType(OpenCSVIO openCSVIO, String address_book_file_path_csv) {
-            System.out.println("Choose operation for csv file");
-            Scanner scanner = new Scanner(System.in);
-            boolean endKey = true;
-            while (endKey) {
-                  System.out.println("1: CSV Read    2: CSV Write     9: Exit");
-                  int choice;
-                  choice = scanner.nextInt();
-                  scanner.nextLine();
-                  switch (choice) {
-                        case 1:
-                              openCSVIO.readFromCSVFile(address_book_file_path_csv, contactsDetailsList);
-                              break;
-                        case 2:
-                              openCSVIO.writeToCSVFile(address_book_file_path_csv, contactsDetailsList);
-                              break;
-                        case 9:
-                              endKey = false;
-                              break;
-                        default:
-                              System.out.println("Choose valid input");
-                              break;
-                  }
+      public void saveCSVType(OpenCSVIO openCSVIO, String address_book_file_path_csv, int choice) {
+            switch (choice) {
+                  case 1:
+                        openCSVIO.readFromCSVFile(address_book_file_path_csv, contactsDetailsList);
+                        break;
+                  case 2:
+                        openCSVIO.writeToCSVFile(address_book_file_path_csv, contactsDetailsList);
+                        break;
+                  default:
+                        System.out.println("Choose valid input");
+                        break;
             }
       }
 
@@ -154,5 +131,8 @@ public class AddressBook {
                               break;
                   }
             }
+      }
+      public List<Person> getContactsDetailsList(){
+            return contactsDetailsList;
       }
 }
