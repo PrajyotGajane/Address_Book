@@ -18,7 +18,7 @@ public class UserInputs {
             this.addCity(person);
             this.addState(person);
             this.addZipCode(person);
-            this.addPhoneNumber(person);
+            this.addMobileNumber(person);
             return person;
       }
 
@@ -40,7 +40,7 @@ public class UserInputs {
                         case 4:
                               this.addZipCode(person);
                         case 5:
-                              this.addPhoneNumber(person);
+                              this.addMobileNumber(person);
                               break;
                         case 6:
                               flag = false;
@@ -75,34 +75,34 @@ public class UserInputs {
             } while (!validateInput(person.lastName, PATTERN));
       }
 
-      private void addAddress(Person person) {
+      public void addAddress(Person person) {
             System.out.println("Enter your Address");
             person.address = scan.next();
             scan.nextLine();
       }
 
-      private void addCity(Person person) {
+      public void addCity(Person person) {
             do {
                   System.out.println("Enter your City");
                   person.cityName = scan.next();
             } while (!validateInput(person.cityName, PATTERN));
       }
 
-      private void addState(Person person) {
+      public void addState(Person person) {
             do {
                   System.out.println("Enter your State");
                   person.stateName = scan.next();
             } while (!validateInput(person.stateName, PATTERN));
       }
 
-      private void addZipCode(Person person) {
+      public void addZipCode(Person person) {
             do {
                   System.out.println("Enter your Zip code");
                   person.zipCode = scan.next();
             } while (!validateInput(person.zipCode, "^[1-9][0-9]{5}$"));
       }
 
-      private void addPhoneNumber(Person person) {
+      public void addMobileNumber(Person person) {
             do {
                   System.out.println("Enter your Phone Number");
                   person.mobileNumber = scan.next();
@@ -124,7 +124,7 @@ public class UserInputs {
             return choice_2;
       }
 
-      private int selectFieldToEdit() {
+      public int selectFieldToEdit() {
             System.out.println("Select field to edit details. \n1: Address \n2: City" +
                     " \n3: State \n4: Zipcode \n5: Phone Number \n6: Save and Exit");
             int select = scan.nextInt();

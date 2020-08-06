@@ -7,9 +7,10 @@ import com.bridgelabz.addressbook.utility.JsonSimpleIO;
 import com.bridgelabz.addressbook.utility.OpenCSVIO;
 import com.bridgelabz.addressbook.utility.UserInputs;
 
+import java.sql.*;
 import java.util.*;
 
-public class AddressBook extends Thread {
+public class AddressBook extends Thread implements IAddressBook{
       private final List<Person> contactsDetailsList = new ArrayList<>();
 
       public boolean isContactPresent(Person personContact) {
@@ -132,7 +133,8 @@ public class AddressBook extends Thread {
                   }
             }
       }
-      public List<Person> getContactsDetailsList(){
+
+      public List<Person> getContactsDetailsList() {
             return contactsDetailsList;
       }
 }

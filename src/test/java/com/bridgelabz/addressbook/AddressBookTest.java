@@ -2,12 +2,14 @@ package com.bridgelabz.addressbook;
 
 import com.bridgelabz.addressbook.models.Person;
 import com.bridgelabz.addressbook.service.AddressBook;
+import com.bridgelabz.addressbook.utility.DataBaseConnection;
 import com.bridgelabz.addressbook.utility.GsonIO;
 import com.bridgelabz.addressbook.utility.OpenCSVIO;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,5 +60,10 @@ public class AddressBookTest {
             threadTwo.setName("Second Thread");
             threadOne.start();
             threadTwo.start();
+      }
+
+      @Test
+      public void database_connection() {
+            Connection connection = DataBaseConnection.getConnection();
       }
 }
