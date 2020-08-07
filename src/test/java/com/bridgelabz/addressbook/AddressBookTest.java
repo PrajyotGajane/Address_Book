@@ -5,23 +5,37 @@ import com.bridgelabz.addressbook.service.AddressBook;
 import com.bridgelabz.addressbook.utility.DataBaseConnection;
 import com.bridgelabz.addressbook.utility.GsonIO;
 import com.bridgelabz.addressbook.utility.OpenCSVIO;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AddressBookTest {
       AddressBook addressBook;
       Person contactOne;
-      List<Person> contactList = new ArrayList<>();
-      private final String ADDRESS_BOOK_FILE_PATH_JSON = "src/main/resources/AddressBookList.json";
+      Connection connection;
+
+      @Before
+      public void before() {
+            connection = DataBaseConnection.getConnection();
+      }
+
+      @After
+      public void after() {
+            DataBaseConnection.closeConnection(connection);
+      }
+
       private final String ADDRESS_BOOK_FILE_PATH_CSV = "src/main/resources/AddressBookListCSV.csv";
       private final String ADDRESS_BOOK_FILE_PATH_GSON = "src/main/resources/AddressBookListGSON.json";
+
       @Before
-      public void setUp(){
+      public void setUp() {
             addressBook = new AddressBook();
             contactOne = new Person("Prajyot", "Gajane", "Hno 3", "Margao", "Goa",
                     "403601", "9922542204");
@@ -63,7 +77,24 @@ public class AddressBookTest {
       }
 
       @Test
-      public void database_connection() {
-            Connection connection = DataBaseConnection.getConnection();
+      public void givenDatabaseStatement_WhenClosed_ShouldReturnTrue() {
+            Statement statement;
+            try {
+                  statement = connection.createStatement();
+                  DataBaseConnection.closeStatement(statement);
+                  Assert.assertTrue(statement.isClosed());
+            } catch (SQLException e) {
+                  Assert.fail();
+            }
+      }
+
+      @Test
+      public void givenDatabaseConnection_WhenClosed_ShouldReturnTrue() {
+            DataBaseConnection.closeConnection(connection);
+            try {
+                  Assert.assertTrue(connection.isClosed());
+            } catch (SQLException e) {
+                  Assert.fail();
+            }
       }
 }

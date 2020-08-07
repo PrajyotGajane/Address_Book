@@ -36,7 +36,7 @@ public class JsonSimpleIO {
             }
       }
 
-      public List<Person> jsonFileReader(String jsonFilePath,  List<Person> contactListOfPerson) {
+      public List<Person> jsonFileReader(String jsonFilePath, List<Person> contactListOfPerson) {
             JSONParser jsonParser = new JSONParser();
             try (FileReader fileReader = new FileReader(jsonFilePath)) {
                   Object obj = jsonParser.parse(fileReader);

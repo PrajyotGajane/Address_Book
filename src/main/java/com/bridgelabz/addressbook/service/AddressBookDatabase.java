@@ -10,7 +10,6 @@ import java.util.Scanner;
 public class AddressBookDatabase implements IAddressBook {
       private PreparedStatement preparedStatement;
       ResultSet resultSet = null;
-      private Scanner scanner = new Scanner(System.in);
       UserInputs userInputs = new UserInputs();
 
       @Override
@@ -46,7 +45,8 @@ public class AddressBookDatabase implements IAddressBook {
                                     preparedStatement = connection.prepareStatement("UPDATE contacts SET Address = ? WHERE Name = ?");
                                     preparedStatement.setString(1, person.getAddress());
                                     break;
-                              case 2:userInputs.addCity(person);
+                              case 2:
+                                    userInputs.addCity(person);
                                     preparedStatement = connection.prepareStatement("UPDATE contacts SET City = ? WHERE Name = ?");
                                     preparedStatement.setString(1, person.getCityName());
                                     break;
@@ -74,6 +74,7 @@ public class AddressBookDatabase implements IAddressBook {
                         }
                         preparedStatement.setString(2, fullName);
                         preparedStatement.executeUpdate();
+                        preparedStatement.close();
                   }
             } catch (SQLException e) {
                   System.out.println("Contact does'nt exist");
@@ -88,6 +89,7 @@ public class AddressBookDatabase implements IAddressBook {
                   resultSet = preparedStatement.executeQuery();
                   System.out.println("\nAll contacts in address book");
                   getContactsFromResultSet(resultSet);
+                  preparedStatement.close();
             } catch (SQLException e) {
                   e.printStackTrace();
             }
@@ -100,6 +102,7 @@ public class AddressBookDatabase implements IAddressBook {
                   preparedStatement = connection.prepareStatement("DELETE FROM contacts WHERE Name = ?");
                   preparedStatement.setString(1, fullName);
                   preparedStatement.executeUpdate();
+                  preparedStatement.close();
                   System.out.println("\nContact Deleted");
             } catch (SQLException e) {
                   System.out.println("Contact does'nt exist");
@@ -114,6 +117,7 @@ public class AddressBookDatabase implements IAddressBook {
                   preparedStatement.setString(1, fullName);
                   resultSet = preparedStatement.executeQuery();
                   getContactsFromResultSet(resultSet);
+                  preparedStatement.close();
             } catch (SQLException e) {
                   System.out.println("Contact does'nt exist");
             }
@@ -141,6 +145,7 @@ public class AddressBookDatabase implements IAddressBook {
                   }
                   resultSet = preparedStatement.executeQuery();
                   getContactsFromResultSet(resultSet);
+                  preparedStatement.close();
             } catch (SQLException e) {
                   System.out.println("Contact does'nt exist");
             }

@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 public class UserInputs {
       private final Scanner scan = new Scanner(System.in);
-      private final String PATTERN = "^[a-zA-Z]{1,}$";
+      private final String PATTERN = "^[A-Z]{1,}$";
 
 
       public Person addPerson() {
@@ -77,7 +77,7 @@ public class UserInputs {
 
       public void addAddress(Person person) {
             System.out.println("Enter your Address");
-            person.address = scan.next();
+            person.address = scan.nextLine();
             scan.nextLine();
       }
 

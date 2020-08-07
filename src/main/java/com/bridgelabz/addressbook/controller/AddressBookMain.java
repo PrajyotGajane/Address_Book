@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 public class AddressBookMain {
       IAddressBook addressBook;
+
       public static void main(String[] args) {
             UserInputs userInputs = new UserInputs();
             final String ADDRESS_BOOK_FILE_PATH_JSON = "src/main/resources/AddressBookList.json";
@@ -25,7 +26,7 @@ public class AddressBookMain {
             System.out.println("Select options from the menu");
             while (endKey) {
                   System.out.println("1.Add  2.Edit  3.Delete  4.View  5:Sort  6:Search for Person  \n7:Save/Read Json file" +
-                          "  8:Save/Read CSV file  9:Save/Read GSON file 10: Save to Database 11:EXIT");
+                          "  8:Save/Read CSV file  9:Save/Read GSON file 11:EXIT");
                   int choice = sc.nextInt();
                   switch (choice) {
                         case 1:
@@ -49,17 +50,18 @@ public class AddressBookMain {
                               String[] nameToSearch = userInputs.editOrDeleteDetails();
                               addressBook.searchPerson(nameToSearch[0], nameToSearch[1]);
                               break;
-//                        case 7:
-//                              addressBook.saveJsonType(jsonSimpleIO, ADDRESS_BOOK_FILE_PATH_JSON);
-//                              break;
-//                        case 8:
-//                              addressBook.saveCSVType(openCSVIO, ADDRESS_BOOK_FILE_PATH_CSV, userInputs.saveReadFileToCSV());
-//                              break;
-//                        case 9:
-//                              addressBook.saveGSONType(gsonIO,ADDRESS_BOOK_FILE_PATH_GSON, userInputs.saveReadFileToGson());
-//                              break;
-//                        case 10:
-//                              break;
+                        case 7:
+                              AddressBook addressBookJson = new AddressBook();
+                              addressBookJson.saveJsonType(jsonSimpleIO, ADDRESS_BOOK_FILE_PATH_JSON);
+                              break;
+                        case 8:
+                              AddressBook addressBookCSV = new AddressBook();
+                              addressBookCSV.saveCSVType(openCSVIO, ADDRESS_BOOK_FILE_PATH_CSV, userInputs.saveReadFileToCSV());
+                              break;
+                        case 9:
+                              AddressBook addressBookGson = new AddressBook();
+                              addressBookGson.saveGSONType(gsonIO, ADDRESS_BOOK_FILE_PATH_GSON, userInputs.saveReadFileToGson());
+                              break;
                         case 11:
                               endKey = false;
                               break;
@@ -73,8 +75,8 @@ public class AddressBookMain {
       private IAddressBook selectOperation() {
             System.out.println("Select 1: For file io operations   2: For Database IO operations");
             Scanner scanner = new Scanner(System.in);
-            int choice  = scanner.nextInt();
-            switch (choice){
+            int choice = scanner.nextInt();
+            switch (choice) {
                   case 1:
                         addressBook = new AddressBook();
                         break;
