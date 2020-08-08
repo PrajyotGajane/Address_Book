@@ -2,7 +2,7 @@ package com.bridgelabz.addressbook;
 
 import com.bridgelabz.addressbook.models.Person;
 import com.bridgelabz.addressbook.service.AddressBook;
-import com.bridgelabz.addressbook.utility.DataBaseConnection;
+import com.bridgelabz.addressbook.dbconnection.DataBaseConnection;
 import com.bridgelabz.addressbook.utility.GsonIO;
 import com.bridgelabz.addressbook.utility.OpenCSVIO;
 import org.junit.After;
@@ -12,14 +12,11 @@ import org.junit.Test;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 public class AddressBookTest {
-      AddressBook addressBook;
-      Person contactOne;
-      Connection connection;
+      private AddressBook addressBook;
+      private Person contactOne;
+      private Connection connection;
 
       @Before
       public void before() {
@@ -74,18 +71,6 @@ public class AddressBookTest {
             threadTwo.setName("Second Thread");
             threadOne.start();
             threadTwo.start();
-      }
-
-      @Test
-      public void givenDatabaseStatement_WhenClosed_ShouldReturnTrue() {
-            Statement statement;
-            try {
-                  statement = connection.createStatement();
-                  DataBaseConnection.closeStatement(statement);
-                  Assert.assertTrue(statement.isClosed());
-            } catch (SQLException e) {
-                  Assert.fail();
-            }
       }
 
       @Test

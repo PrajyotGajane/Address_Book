@@ -1,16 +1,15 @@
 package com.bridgelabz.addressbook.service;
 
 import com.bridgelabz.addressbook.models.Person;
-import com.bridgelabz.addressbook.utility.DataBaseConnection;
+import com.bridgelabz.addressbook.dbconnection.DataBaseConnection;
 import com.bridgelabz.addressbook.utility.UserInputs;
 
 import java.sql.*;
-import java.util.Scanner;
 
 public class AddressBookDatabase implements IAddressBook {
       private PreparedStatement preparedStatement;
-      ResultSet resultSet = null;
-      UserInputs userInputs = new UserInputs();
+      private ResultSet resultSet = null;
+      private UserInputs userInputs = new UserInputs();
 
       @Override
       public void addContact(Person person) {

@@ -127,8 +127,7 @@ public class UserInputs {
       public int selectFieldToEdit() {
             System.out.println("Select field to edit details. \n1: Address \n2: City" +
                     " \n3: State \n4: Zipcode \n5: Phone Number \n6: Save and Exit");
-            int select = scan.nextInt();
-            return select;
+            return scan.nextInt();
       }
 
       public int saveReadFileToGson() {

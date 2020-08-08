@@ -1,13 +1,13 @@
-package com.bridgelabz.addressbook.utility;
+package com.bridgelabz.addressbook.dbconnection;
+
+import jdk.nashorn.internal.objects.annotations.Property;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Properties;
-
 public class DataBaseConnection {
       public static Connection getConnection() {
             Properties properties = new Properties();
@@ -27,14 +27,6 @@ public class DataBaseConnection {
       public static void closeConnection(Connection connection) {
             try {
                   connection.close();
-            } catch (SQLException e) {
-                  e.printStackTrace();
-            }
-      }
-
-      public static void closeStatement(Statement statement) {
-            try {
-                  statement.close();
             } catch (SQLException e) {
                   e.printStackTrace();
             }
